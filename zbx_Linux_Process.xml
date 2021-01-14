@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zabbix_export>
+    <version>5.0</version>
+    <date>2021-01-14T04:33:39Z</date>
+    <groups>
+        <group>
+            <name>Templates</name>
+        </group>
+    </groups>
+    <templates>
+        <template>
+            <template>Template OS Linux Process Discovery</template>
+            <name>Template OS Linux Process Discovery</name>
+            <groups>
+                <group>
+                    <name>Templates</name>
+                </group>
+            </groups>
+            <applications>
+                <application>
+                    <name>Process Monitor</name>
+                </application>
+            </applications>
+            <discovery_rules>
+                <discovery_rule>
+                    <name>Linux Process Discovery</name>
+                    <key>linux.process.discovery</key>
+                    <filter>
+                        <conditions>
+                            <condition>
+                                <macro>{#PROCESSNAME}</macro>
+                                <value>@Process for Linux Discovery</value>
+                                <formulaid>A</formulaid>
+                            </condition>
+                        </conditions>
+                    </filter>
+                    <item_prototypes>
+                        <item_prototype>
+                            <name>Process {#PROCESSNAME} % CPU Usage</name>
+                            <key>linux.process.resource[{#PROCESSKEY},%cpu]</key>
+                            <history>7d</history>
+                            <value_type>FLOAT</value_type>
+                            <units>%</units>
+                            <applications>
+                                <application>
+                                    <name>Process Monitor</name>
+                                </application>
+                            </applications>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Process {#PROCESSNAME} % MEM Usage</name>
+                            <key>linux.process.resource[{#PROCESSKEY},%mem]</key>
+                            <history>7d</history>
+                            <value_type>FLOAT</value_type>
+                            <units>%</units>
+                            <applications>
+                                <application>
+                                    <name>Process Monitor</name>
+                                </application>
+                            </applications>
+                        </item_prototype>
+                    </item_prototypes>
+                </discovery_rule>
+                <discovery_rule>
+                    <name>Linux ProcessNum Discovery</name>
+                    <key>linux.uniq.process.discovery</key>
+                    <filter>
+                        <conditions>
+                            <condition>
+                                <macro>{#PROCESSNAME}</macro>
+                                <value>@Process for Linux Discovery</value>
+                                <formulaid>A</formulaid>
+                            </condition>
+                        </conditions>
+                    </filter>
+                    <item_prototypes>
+                        <item_prototype>
+                            <name>Process {#PROCESSNAME} Count</name>
+                            <key>proc.num[{#PROCESSNAME}]</key>
+                            <delay>20s</delay>
+                            <history>7d</history>
+                            <applications>
+                                <application>
+                                    <name>Process Monitor</name>
+                                </application>
+                            </applications>
+                        </item_prototype>
+                    </item_prototypes>
+                </discovery_rule>
+            </discovery_rules>
+        </template>
+    </templates>
+</zabbix_export>
